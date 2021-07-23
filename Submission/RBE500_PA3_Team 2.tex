@@ -1,0 +1,69 @@
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=0.725in]{geometry}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{amstext} % for \text macro
+\usepackage{array}   % for \newcolumntype macro
+\allowdisplaybreaks
+
+\usepackage[T1]{fontenc}
+\usepackage[numbered,framed]{matlab-prettifier}
+
+\hypersetup{ colorlinks=true, linkcolor=blue}
+
+\DeclareMathOperator{\atantwo}{atan2}
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "l" column type
+
+\pagestyle{fancy}
+\lhead{RBE 500 - PA \#3 \newline Team 2: Peter Campellone, Aislin Hanscom, Christopher Poole}
+\rhead{Due: 7/27/2021}
+
+\begin{document}
+
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{3pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\textbf{Package overview:}
+\begin{itemize}
+	\item Inside \texttt{catkin\_ws/src}, the main package is \texttt{scara\_robot}. It does not directly contain any nodes or launch files, but is a way to organize all of the other nodes.
+	\begin{itemize}
+		\item New package:
+		\begin{itemize}
+			\item The \texttt{scara\_pd\_controller} package implements a proportional and derivative controller for the three controllable joints: joint 1 (revolute), 2 (revolute), and 5 (prismatic joint). The controller functions by reading the current joint position using the \\ \texttt{gazebo/get\_joint\_properties} service, calculating the necessary input into the joint, and applying the input force using the \texttt{gazebo/apply\_joint\_effort} service. The controller receives the desired reference position using a custom service message under \texttt{scara/JointControlReference}.
+		\end{itemize}
+		
+		\item Old packages used (from PA \#1):
+		\begin{itemize}
+			\item The \texttt{scara\_gazebo} package includes the launch files for the gazebo world.
+			\item The \texttt{scara\_description} package includes the URDF files for the robot as well as the rviz launch files.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\vspace{0.5cm}
+
+\textbf{Problems:}
+\begin{enumerate}
+	\item Velocity Level Kinematics: Implement a node with two services. One takes joint velocities and converts them to end effector velocities, and the second one takes end effector velocities and converts them to joint velocities.
+	
+	\item Extend the position controller in Part 2 to all the joints. (don't forget to revert the joint types.) Move the robot to a position that is significantly away from singular configurations using you position controllers
+	
+	\item Write velocity controllers for all the joints. For tuning the controller gains, you might need to fix the joints rather than the joint of consideration. Don't forget to revert the joint type to movable ones once you are done.
+	
+	\item Give a constant velocity reference in the positive $y$ direction of the Cartesian space. Convert this velocity in to the joint space using your Jacobian and feed it as a reference to your velocity controllers. This should make the robot move on a straight line in the $+y$ direction. Record the generated velocity references together with the actual velocity of the system over time, and plot via Matlab.
+	
+\end{enumerate}
+\end{document}
+
+
+
