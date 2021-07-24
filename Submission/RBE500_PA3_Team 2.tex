@@ -53,6 +53,14 @@
 \vspace{0.5cm}
 
 \textbf{Problems:}
+
+The following coordinate frame definitions will be used for all parts:
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/rrp_manipulator_reference_frames.png}
+\end{figure}
+
 \begin{enumerate}
 	\item Velocity Level Kinematics: Implement a node with two services. One takes joint velocities and converts them to end effector velocities, and the second one takes end effector velocities and converts them to joint velocities.
 	
@@ -87,25 +95,23 @@ def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
 		
 \begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
 def request_joint_status(joint):
-	global joint_pos
-	
+
 	joint_stauts = rospy.ServiceProxy('/gazebo/get_joint_properties', GetJointProperties)
 	resp = joint_stauts(joint)
 	
+	joint_pos = -resp.position[0]
+	
+	if debug == True:
+		print("\n\nReceived %s position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
+	
 	if joint == 'joint1':
-		joint_pos = resp.position[0]
 		E_old[0] = pd_control('joint1', joint_pos, th1_des, kp[0], kd[0], E_old[0])
 	
 	if joint == 'joint3':
-		joint_pos = resp.position[0]
 		E_old[1] = pd_control('joint3', joint_pos, th2_des, kp[1], kd[1], E_old[1])
 	
 	if joint == 'joint5':
-		joint_pos = -resp.position[0]
 		E_old[2] = pd_control('joint5', joint_pos, d3_des, kp[2], kd[2], E_old[2])
-	
-	if debug == True:
-		print("\n\nReceived %f position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
 	
 	return resp
 \end{lstlisting} 
@@ -123,7 +129,7 @@ float64 success
 	The service handler function was also updated to store the desired positions for the revolute joints:
 	
 \begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
-	def service_handle(data):
+def service_handle(data):
 	global th1_des
 	global th2_des
 	global d3_des
@@ -155,6 +161,17 @@ while not rospy.is_shutdown():
 
 
 	\textbf{**insert controller results for revolute joints**}
+	\\
+	
+	To run the controller:
+	
+	\begin{enumerate}
+		\item \texttt{catkin\_make}
+		\item \texttt{source devel/setup.bash}
+		\item \texttt{roslaunch scara\_gazebo scara\_world.launch}
+		\item In a new window, \texttt{rosrun scara\_pd\_controller pd\_control.py}. The controller will begin controlling the joint to its home position ($d_3 = 0$).
+		\item In a new window, \texttt{rosservice call /scara/JointControlReference "d3\_des: X.XX"} where X.XX is any number between 0 and 1 (joint limits).
+	\end{enumerate}
 	
 	\item Write velocity controllers for all the joints. For tuning the controller gains, you might need to fix the joints rather than the joint of consideration. Don't forget to revert the joint type to movable ones once you are done.
 	

@@ -18,16 +18,16 @@ from scara_pd_controller.srv import JointControlReference
 debug = True
 print_to_file = True
 
-file1 = open("p_control_plot.txt","w")
+file1 = open("pd_control_plot.txt","w")
 
-th_des = 0.0
+th1_des = 0.1
 th2_des = 0.0
 d3_des = 0.0
 
 E_old = np.array([0.0, 0.0, 0.0])
 
-kp = np.array([1.0, 1.0, 1100.0])
-kd = np.array([1.0, 1.0, 35.0])
+kp = np.array([500.0, 100.0, 1100.0])
+kd = np.array([550.0, 50.0, 35.0])
 
 rate = 200.0
 
@@ -48,9 +48,9 @@ def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
 	f = -(kp*err + kd*d_err)
 
 	if debug == True:
-		print("\nerr = %f,  d_err = %f" % (err, d_err))
-		print("\npos_des = %f, pos_cur = %f" % (pos_des, pos_cur))
-		print("\nSending joint force f = [%f]" % (f)) # printing calculated values to terminal
+		print("err = %f,  d_err = %f" % (err, d_err))
+		print("pos_des = %f, pos_cur = %f" % (pos_des, pos_cur))
+		print("Sending joint force f = [%f]" % (f)) # printing calculated values to terminal
 
 	je_service = rospy.ServiceProxy('/gazebo/apply_joint_effort', ApplyJointEffort)
 	zero_time = rospy.Time()
@@ -58,7 +58,7 @@ def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
 	je_service(joint, f, zero_time, tick)
 
 	if print_to_file == True:
-		file1.write("%f,%f,%f,%f,%f\n" % (joint,pos_cur, pos_des,f,1/rate)) 
+		file1.write("%s,%f,%f,%f,%f\n" % (joint,pos_cur, pos_des,f,1/rate)) 
 
 	return err
 
@@ -67,21 +67,20 @@ def request_joint_status(joint):
 	joint_stauts = rospy.ServiceProxy('/gazebo/get_joint_properties', GetJointProperties)
 	resp = joint_stauts(joint)
 
-	if joint == 'joint1':
-		joint_pos = resp.position[0]
-		E_old[0] = pd_control('joint1', joint_pos, th1_des, kp[0], kd[0], E_old[0])
+	joint_pos = resp.position[0]
 	
+	if debug == True:
+		print("\n\nReceived %s position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
+
+	if joint == 'joint1':
+		E_old[0] = pd_control('joint1', -joint_pos, -th1_des, kp[0], kd[0], E_old[0])
+
 	if joint == 'joint3':
-		joint_pos = resp.position[0]
-		E_old[1] = pd_control('joint3', joint_pos, th2_des, kp[1], kd[1], E_old[1])
+		E_old[1] = pd_control('joint3', -joint_pos, th2_des, kp[1], kd[1], E_old[1])
 
 	if joint == 'joint5':
-		joint_pos = -resp.position[0]
-		E_old[2] = pd_control('joint5', joint_pos, d3_des, kp[2], kd[2], E_old[2])
+		E_old[2] = pd_control('joint5', -joint_pos, d3_des, kp[2], kd[2], E_old[2])
 
-	if debug == True:
-		print("\n\nReceived %f position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
-	
 	return resp
 
 def service_handle(data):
