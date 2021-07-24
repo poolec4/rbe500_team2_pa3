@@ -20,7 +20,7 @@ print_to_file = True
 
 file1 = open("pd_control_plot.txt","w")
 
-th1_des = 0.1
+th1_des = 0.0
 th2_des = 0.0
 d3_des = 0.0
 
@@ -73,7 +73,7 @@ def request_joint_status(joint):
 		print("\n\nReceived %s position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
 
 	if joint == 'joint1':
-		E_old[0] = pd_control('joint1', -joint_pos, -th1_des, kp[0], kd[0], E_old[0])
+		E_old[0] = pd_control('joint1', -joint_pos, th1_des, kp[0], kd[0], E_old[0])
 
 	if joint == 'joint3':
 		E_old[1] = pd_control('joint3', -joint_pos, th2_des, kp[1], kd[1], E_old[1])

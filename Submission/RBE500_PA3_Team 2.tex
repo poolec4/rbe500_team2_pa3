@@ -56,7 +56,7 @@
 
 The following coordinate frame definitions will be used for all parts:
 
-	\begin{figure}[H]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/rrp_manipulator_reference_frames.png}
 \end{figure}
@@ -67,7 +67,35 @@ The following coordinate frame definitions will be used for all parts:
 	\item Extend the position controller in Part 2 to all the joints. (don't forget to revert the joint types.) Move the robot to a position that is significantly away from singular configurations using you position controllers
 	\\
 	
-	The PD position controller from PA2 was expanded to control the revolute joints (referred to as joints 1 and 3 in gazebo because of the fixed joints). The function was already made to take in arbitrary current positions, desired positions, gains, and the joint name, but minor changes were made to the way the error is passed into the function:
+	First the revolute joints were reverted back to non-fixed joints in the gazebo XACRO file:
+	
+\begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
+<joint name="joint1" type="revolute">
+	<parent link="link1"/>
+	<child link="link2"/>
+	<origin xyz="0 0 ${height1 - axel_offset}" rpy="0 0 1.570796"/>
+	<axis xyz="0 0 -1"/>
+	<limit effort="100" lower="-3.14" upper="3.14" velocity="1"/>
+	<dynamics damping="0.7"/>
+</joint>
+...
+<joint name="joint3" type="revolute">
+	<parent link="link3"/>
+	<child link="link4"/>
+	<origin xyz="0 1.5 2.5" rpy="1.57 0 0"/>
+	<axis xyz="0 0 1"/>
+	<limit effort="100" lower="-3" upper="3" velocity="1"/>
+	<dynamics damping="0.7"/>
+</joint>
+\end{lstlisting} 
+	
+	The PD position controller from PA2 was expanded to control the revolute joints (referred to as joints 1 and 3 in gazebo because of the fixed joints). The following equation was used:
+	
+	\begin{align*}
+		C(s) = k_p + k_d s \Rightarrow c(t) = k_p E + k_d \frac{dE}{dt}
+	\end{align*}
+	
+	The controller function from PA2 was already made to take in arbitrary current positions, desired positions, gains, and the joint name, but minor changes were made to the way the error is passed into the function:
 		
 \begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
 def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
@@ -76,9 +104,9 @@ def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
 	f = -(kp*err + kd*d_err)
 	
 	if debug == True:
-		print("\nerr = %f,  d_err = %f" % (err, d_err))
-		print("\npos_des = %f, pos_cur = %f" % (pos_des, pos_cur))
-		print("\nSending joint force f = [%f]" % (f)) # printing calculated values to terminal
+		print("err = %f,  d_err = %f" % (err, d_err))
+		print("pos_des = %f, pos_cur = %f" % (pos_des, pos_cur))
+		print("Sending joint force f = [%f]" % (f)) # printing calculated values to terminal
 	
 	je_service = rospy.ServiceProxy('/gazebo/apply_joint_effort', ApplyJointEffort)
 	zero_time = rospy.Time()
@@ -86,7 +114,7 @@ def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
 	je_service(joint, f, zero_time, tick)
 	
 	if print_to_file == True:
-		file1.write("%f,%f,%f,%f,%f\n" % (joint,pos_cur, pos_des,f,1/rate)) 
+		file1.write("%s,%f,%f,%f,%f\n" % (joint,pos_cur, pos_des,f,1/rate)) 
 	
 	return err
 \end{lstlisting} 
@@ -99,19 +127,19 @@ def request_joint_status(joint):
 	joint_stauts = rospy.ServiceProxy('/gazebo/get_joint_properties', GetJointProperties)
 	resp = joint_stauts(joint)
 	
-	joint_pos = -resp.position[0]
+	joint_pos = resp.position[0]
 	
 	if debug == True:
 		print("\n\nReceived %s position: [%f] (meters)" % (joint,joint_pos)) # printing received data to terminal
 	
 	if joint == 'joint1':
-		E_old[0] = pd_control('joint1', joint_pos, th1_des, kp[0], kd[0], E_old[0])
+		E_old[0] = pd_control('joint1', -joint_pos, -th1_des, kp[0], kd[0], E_old[0])
 	
 	if joint == 'joint3':
-		E_old[1] = pd_control('joint3', joint_pos, th2_des, kp[1], kd[1], E_old[1])
+		E_old[1] = pd_control('joint3', -joint_pos, th2_des, kp[1], kd[1], E_old[1])
 	
 	if joint == 'joint5':
-		E_old[2] = pd_control('joint5', joint_pos, d3_des, kp[2], kd[2], E_old[2])
+		E_old[2] = pd_control('joint5', -joint_pos, d3_des, kp[2], kd[2], E_old[2])
 	
 	return resp
 \end{lstlisting} 
@@ -160,17 +188,30 @@ while not rospy.is_shutdown():
 \end{lstlisting}	
 
 
-	\textbf{**insert controller results for revolute joints**}
-	\\
+	When the controller begins, it commands the joints to the home position. The reference position was then set to a two different non-zero positions to show the controller functioning:
 	
+	\begin{minipage}[H]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{figures/link1-pd-plot1.png}
+	\end{minipage}
+	\begin{minipage}[H]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{figures/link2-pd-plot1.png}
+	\end{minipage}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{figures/link3-pd-plot1.png}
+	\end{figure}
+
 	To run the controller:
 	
 	\begin{enumerate}
 		\item \texttt{catkin\_make}
 		\item \texttt{source devel/setup.bash}
 		\item \texttt{roslaunch scara\_gazebo scara\_world.launch}
-		\item In a new window, \texttt{rosrun scara\_pd\_controller pd\_control.py}. The controller will begin controlling the joint to its home position ($d_3 = 0$).
-		\item In a new window, \texttt{rosservice call /scara/JointControlReference "d3\_des: X.XX"} where X.XX is any number between 0 and 1 (joint limits).
+		\item In a new window, \texttt{rosrun scara\_pd\_controller pd\_control.py}. The controller will begin controlling all joints to their home position ($\theta_1 = \theta_2 = d_3 = 0$).
+		\item In a new window, \texttt{rosservice call /scara/JointControlReference "th1\_des: X.XX th2\_des: X.XX d3\_des: X.XX"} where \texttt{X.XX} is any number between $-\pi$ and $\pi$ for the revolute joints and 0 and 1 for the prismatic joint.
 	\end{enumerate}
 	
 	\item Write velocity controllers for all the joints. For tuning the controller gains, you might need to fix the joints rather than the joint of consideration. Don't forget to revert the joint type to movable ones once you are done.
