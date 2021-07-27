@@ -136,6 +136,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_inverse_kinematics/cmake_install.cmake")
   include("/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_forward_kinematics/cmake_install.cmake")
   include("/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_pd_controller/cmake_install.cmake")
+  include("/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_velocity_controller/cmake_install.cmake")
+  include("/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_velocity_kinematics/cmake_install.cmake")
 
 endif()
 

@@ -43,6 +43,7 @@ def rot_to_euler(R): # converts a 3x3 rotation matrix to ZYZ Euler angles
 	return eangles
 
 def pd_control(joint, pos_cur, pos_des, kp, kd, err_old):
+	
 	err = pos_des - pos_cur
 	d_err = (err - err_old)/(1/rate)
 	f = -(kp*err + kd*d_err)

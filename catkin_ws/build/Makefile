@@ -1311,6 +1311,331 @@ std_srvs_generate_messages_py/fast:
 	$(MAKE) -f scara_robot/scara_pd_controller/CMakeFiles/std_srvs_generate_messages_py.dir/build.make scara_robot/scara_pd_controller/CMakeFiles/std_srvs_generate_messages_py.dir/build
 .PHONY : std_srvs_generate_messages_py/fast
 
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_geneus
+
+# Build rule for target.
+scara_velocity_controller_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_geneus
+.PHONY : scara_velocity_controller_geneus
+
+# fast build rule for target.
+scara_velocity_controller_geneus/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_geneus.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_geneus.dir/build
+.PHONY : scara_velocity_controller_geneus/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages
+
+# Build rule for target.
+scara_velocity_controller_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages
+.PHONY : scara_velocity_controller_generate_messages
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages.dir/build
+.PHONY : scara_velocity_controller_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_gencpp
+
+# Build rule for target.
+scara_velocity_controller_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_gencpp
+.PHONY : scara_velocity_controller_gencpp
+
+# fast build rule for target.
+scara_velocity_controller_gencpp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_gencpp.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_gencpp.dir/build
+.PHONY : scara_velocity_controller_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_genlisp
+
+# Build rule for target.
+scara_velocity_controller_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_genlisp
+.PHONY : scara_velocity_controller_genlisp
+
+# fast build rule for target.
+scara_velocity_controller_genlisp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_genlisp.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_genlisp.dir/build
+.PHONY : scara_velocity_controller_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages_nodejs
+
+# Build rule for target.
+scara_velocity_controller_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages_nodejs
+.PHONY : scara_velocity_controller_generate_messages_nodejs
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages_nodejs/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_nodejs.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_nodejs.dir/build
+.PHONY : scara_velocity_controller_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages_cpp
+
+# Build rule for target.
+scara_velocity_controller_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages_cpp
+.PHONY : scara_velocity_controller_generate_messages_cpp
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages_cpp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_cpp.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_cpp.dir/build
+.PHONY : scara_velocity_controller_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_genpy
+
+# Build rule for target.
+scara_velocity_controller_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_genpy
+.PHONY : scara_velocity_controller_genpy
+
+# fast build rule for target.
+scara_velocity_controller_genpy/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_genpy.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_genpy.dir/build
+.PHONY : scara_velocity_controller_genpy/fast
+
+#=============================================================================
+# Target rules for targets named _scara_velocity_controller_generate_messages_check_deps_VelocityControlReference
+
+# Build rule for target.
+_scara_velocity_controller_generate_messages_check_deps_VelocityControlReference: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _scara_velocity_controller_generate_messages_check_deps_VelocityControlReference
+.PHONY : _scara_velocity_controller_generate_messages_check_deps_VelocityControlReference
+
+# fast build rule for target.
+_scara_velocity_controller_generate_messages_check_deps_VelocityControlReference/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/_scara_velocity_controller_generate_messages_check_deps_VelocityControlReference.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/_scara_velocity_controller_generate_messages_check_deps_VelocityControlReference.dir/build
+.PHONY : _scara_velocity_controller_generate_messages_check_deps_VelocityControlReference/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages_lisp
+
+# Build rule for target.
+scara_velocity_controller_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages_lisp
+.PHONY : scara_velocity_controller_generate_messages_lisp
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages_lisp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_lisp.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_lisp.dir/build
+.PHONY : scara_velocity_controller_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages_py
+
+# Build rule for target.
+scara_velocity_controller_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages_py
+.PHONY : scara_velocity_controller_generate_messages_py
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages_py/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_py.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_py.dir/build
+.PHONY : scara_velocity_controller_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_gennodejs
+
+# Build rule for target.
+scara_velocity_controller_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_gennodejs
+.PHONY : scara_velocity_controller_gennodejs
+
+# fast build rule for target.
+scara_velocity_controller_gennodejs/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_gennodejs.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_gennodejs.dir/build
+.PHONY : scara_velocity_controller_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_controller_generate_messages_eus
+
+# Build rule for target.
+scara_velocity_controller_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_controller_generate_messages_eus
+.PHONY : scara_velocity_controller_generate_messages_eus
+
+# fast build rule for target.
+scara_velocity_controller_generate_messages_eus/fast:
+	$(MAKE) -f scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_eus.dir/build.make scara_robot/scara_velocity_controller/CMakeFiles/scara_velocity_controller_generate_messages_eus.dir/build
+.PHONY : scara_velocity_controller_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages_eus
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages_eus
+.PHONY : scara_velocity_kinematics_generate_messages_eus
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages_eus/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_eus.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_eus.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named _scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity
+
+# Build rule for target.
+_scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity
+.PHONY : _scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity
+
+# fast build rule for target.
+_scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/_scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/_scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity.dir/build
+.PHONY : _scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_gencpp
+
+# Build rule for target.
+scara_velocity_kinematics_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_gencpp
+.PHONY : scara_velocity_kinematics_gencpp
+
+# fast build rule for target.
+scara_velocity_kinematics_gencpp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_gencpp.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_gencpp.dir/build
+.PHONY : scara_velocity_kinematics_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages_cpp
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages_cpp
+.PHONY : scara_velocity_kinematics_generate_messages_cpp
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages_cpp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_cpp.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_cpp.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_genpy
+
+# Build rule for target.
+scara_velocity_kinematics_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_genpy
+.PHONY : scara_velocity_kinematics_genpy
+
+# fast build rule for target.
+scara_velocity_kinematics_genpy/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_genpy.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_genpy.dir/build
+.PHONY : scara_velocity_kinematics_genpy/fast
+
+#=============================================================================
+# Target rules for targets named _scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity
+
+# Build rule for target.
+_scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity
+.PHONY : _scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity
+
+# fast build rule for target.
+_scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/_scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/_scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity.dir/build
+.PHONY : _scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages
+.PHONY : scara_velocity_kinematics_generate_messages
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_geneus
+
+# Build rule for target.
+scara_velocity_kinematics_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_geneus
+.PHONY : scara_velocity_kinematics_geneus
+
+# fast build rule for target.
+scara_velocity_kinematics_geneus/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_geneus.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_geneus.dir/build
+.PHONY : scara_velocity_kinematics_geneus/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages_lisp
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages_lisp
+.PHONY : scara_velocity_kinematics_generate_messages_lisp
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages_lisp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_lisp.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_lisp.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages_py
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages_py
+.PHONY : scara_velocity_kinematics_generate_messages_py
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages_py/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_py.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_py.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_genlisp
+
+# Build rule for target.
+scara_velocity_kinematics_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_genlisp
+.PHONY : scara_velocity_kinematics_genlisp
+
+# fast build rule for target.
+scara_velocity_kinematics_genlisp/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_genlisp.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_genlisp.dir/build
+.PHONY : scara_velocity_kinematics_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_generate_messages_nodejs
+
+# Build rule for target.
+scara_velocity_kinematics_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_generate_messages_nodejs
+.PHONY : scara_velocity_kinematics_generate_messages_nodejs
+
+# fast build rule for target.
+scara_velocity_kinematics_generate_messages_nodejs/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_nodejs.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_generate_messages_nodejs.dir/build
+.PHONY : scara_velocity_kinematics_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named scara_velocity_kinematics_gennodejs
+
+# Build rule for target.
+scara_velocity_kinematics_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scara_velocity_kinematics_gennodejs
+.PHONY : scara_velocity_kinematics_gennodejs
+
+# fast build rule for target.
+scara_velocity_kinematics_gennodejs/fast:
+	$(MAKE) -f scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_gennodejs.dir/build.make scara_robot/scara_velocity_kinematics/CMakeFiles/scara_velocity_kinematics_gennodejs.dir/build
+.PHONY : scara_velocity_kinematics_gennodejs/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1412,6 +1737,31 @@ help:
 	@echo "... gazebo_msgs_generate_messages_cpp"
 	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... std_srvs_generate_messages_py"
+	@echo "... scara_velocity_controller_geneus"
+	@echo "... scara_velocity_controller_generate_messages"
+	@echo "... scara_velocity_controller_gencpp"
+	@echo "... scara_velocity_controller_genlisp"
+	@echo "... scara_velocity_controller_generate_messages_nodejs"
+	@echo "... scara_velocity_controller_generate_messages_cpp"
+	@echo "... scara_velocity_controller_genpy"
+	@echo "... _scara_velocity_controller_generate_messages_check_deps_VelocityControlReference"
+	@echo "... scara_velocity_controller_generate_messages_lisp"
+	@echo "... scara_velocity_controller_generate_messages_py"
+	@echo "... scara_velocity_controller_gennodejs"
+	@echo "... scara_velocity_controller_generate_messages_eus"
+	@echo "... scara_velocity_kinematics_generate_messages_eus"
+	@echo "... _scara_velocity_kinematics_generate_messages_check_deps_ee_to_joint_velocity"
+	@echo "... scara_velocity_kinematics_gencpp"
+	@echo "... scara_velocity_kinematics_generate_messages_cpp"
+	@echo "... scara_velocity_kinematics_genpy"
+	@echo "... _scara_velocity_kinematics_generate_messages_check_deps_joint_to_ee_velocity"
+	@echo "... scara_velocity_kinematics_generate_messages"
+	@echo "... scara_velocity_kinematics_geneus"
+	@echo "... scara_velocity_kinematics_generate_messages_lisp"
+	@echo "... scara_velocity_kinematics_generate_messages_py"
+	@echo "... scara_velocity_kinematics_genlisp"
+	@echo "... scara_velocity_kinematics_generate_messages_nodejs"
+	@echo "... scara_velocity_kinematics_gennodejs"
 .PHONY : help
 
 

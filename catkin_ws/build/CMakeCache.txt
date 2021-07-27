@@ -364,7 +364,7 @@ gtest_hide_internal_symbols:BOOL=OFF
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/melodic/lib/libxmlrpcpp.so
+lib:FILEPATH=/opt/ros/melodic/lib/librostime.so
 
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
@@ -422,6 +422,18 @@ scara_pd_controller_BINARY_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/bui
 
 //Value Computed by CMake
 scara_pd_controller_SOURCE_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/src/scara_robot/scara_pd_controller
+
+//Value Computed by CMake
+scara_velocity_controller_BINARY_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_velocity_controller
+
+//Value Computed by CMake
+scara_velocity_controller_SOURCE_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/src/scara_robot/scara_velocity_controller
+
+//Value Computed by CMake
+scara_velocity_kinematics_BINARY_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/build/scara_robot/scara_velocity_kinematics
+
+//Value Computed by CMake
+scara_velocity_kinematics_SOURCE_DIR:STATIC=/home/chris/rbe500_team2_pa3/catkin_ws/src/scara_robot/scara_velocity_kinematics
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/melodic/share/sensor_msgs/cmake
@@ -548,7 +560,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

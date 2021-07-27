@@ -63,6 +63,20 @@ The following coordinate frame definitions will be used for all parts:
 
 \begin{enumerate}
 	\item Velocity Level Kinematics: Implement a node with two services. One takes joint velocities and converts them to end effector velocities, and the second one takes end effector velocities and converts them to joint velocities.
+	\\
+	
+	The work to derive the equations is attached in the submission.
+	\\
+	
+	To run the node:
+	
+	\begin{enumerate}
+		\item \texttt{catkin\_make}
+		\item \texttt{source devel/setup.bash}
+		\item \texttt{rosrun scara\_velocity\_kinematics velocity\_kinematics.py}
+		\item In a new window, \texttt{rosservice call /scara/ForwardJacobianCalculation} and double tab complete
+		\item In a new window, \texttt{rosservice call /scara/InverseJacobianCalculation} and double tab complete
+	\end{enumerate}
 	
 	\item Extend the position controller in Part 2 to all the joints. (don't forget to revert the joint types.) Move the robot to a position that is significantly away from singular configurations using you position controllers
 	\\
@@ -203,6 +217,9 @@ while not rospy.is_shutdown():
 		\centering
 		\includegraphics[width=0.45\textwidth]{figures/link3-pd-plot1.png}
 	\end{figure}
+	
+	We can see that the controllers are functioning for all three joints. Links 1 and 2 have a slower response than Link 3 because of lower gains. Link 3 required higher gains to overcome the constant gravity force. If the proportional gain for link 1 and 2 was increased too much more, it would also increase the overshoot. The derivative gain could then be increased as well to combat this, but it could lead to system instability.
+	\\
 
 	To run the controller:
 	
@@ -215,9 +232,89 @@ while not rospy.is_shutdown():
 	\end{enumerate}
 	
 	\item Write velocity controllers for all the joints. For tuning the controller gains, you might need to fix the joints rather than the joint of consideration. Don't forget to revert the joint type to movable ones once you are done.
+	\\
 	
+	The velocity controllers are written in the \texttt{velocity\_control} function within the velocity controller node:
+
+\begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
+def velocity_control(joint, vel_cur, vel_des, kp, kd, err_old):
+	
+	err = vel_des - vel_cur
+	d_err = (err - err_old)/(1/rate)
+	
+	f = -(kp*err + kd*d_err)
+	
+	if debug == True:
+		print("\nerr = %f,  d_err = %f" % (err, d_err))
+		print("vel_des = %f, vel_cur = %f" % (vel_des, vel_cur))
+		print("Sending joint force f = [%f]" % (f)) # printing calculated values to terminal
+	
+	je_service = rospy.ServiceProxy('/gazebo/apply_joint_effort', ApplyJointEffort)
+	zero_time = rospy.Time()
+	tick = rospy.Duration(0, int((1/rate)*10**9))
+	je_service(joint, f, zero_time, tick)
+	
+	if print_to_file == True:
+		file1.write("%s,%f,%f,%f,%f\n" % (joint,vel_cur, vel_des,f,1/rate)) 
+	
+	return err
+\end{lstlisting}	
+
+	The main server loop is as such:
+	
+\begin{lstlisting}[style=Matlab-editor,basicstyle=\mlttfamily,escapechar=`]
+while not rospy.is_shutdown():
+
+	request_joint_status('joint1')
+	request_joint_status('joint3')
+	request_joint_status('joint5')
+	
+	# calculate current q_dot
+	q_dot_cur = (joint_pos_cur - joint_pos_old)/(1.0/rate)
+	
+	th1 = joint_pos_cur[0]
+	th2 = joint_pos_cur[1]
+	d3 = joint_pos_cur[2]
+	
+	jac_service = rospy.ServiceProxy('scara/InverseJacobianCalculation', ee_to_joint_velocity)
+	jac_resp = jac_service(th1,th2,d3,x_dot_des,y_dot_des,z_dot_des)
+	
+	q_dot_des[0] = jac_resp.th1_dot
+	q_dot_des[1] = jac_resp.th2_dot
+	q_dot_des[2] = jac_resp.d3_dot
+	
+	# invoke controller and set return = q_dot_err for next control loop
+	q_dot_err[0] = velocity_control('joint1', q_dot_cur[0], q_dot_des[0], kp[0], kd[0], q_dot_err[0])
+	q_dot_err[1] = velocity_control('joint3', q_dot_cur[1], q_dot_des[1], kp[1], kd[1], q_dot_err[1])
+	q_dot_err[2] = velocity_control('joint5', q_dot_cur[2], q_dot_des[2], kp[2], kd[2], q_dot_err[2])
+	
+	joint_pos_old[0] = joint_pos_cur[0]
+	joint_pos_old[1] = joint_pos_cur[1]
+	joint_pos_old[2] = joint_pos_cur[2]
+	
+	r.sleep()
+\end{lstlisting}
+	
+	To run the controller:
+	
+	\begin{enumerate}
+		\item \texttt{catkin\_make}
+		\item \texttt{source devel/setup.bash}
+		\item \texttt{rosrun scara\_velocity\_controller velocity\_control.py}
+	\end{enumerate}
+
 	\item Give a constant velocity reference in the positive $y$ direction of the Cartesian space. Convert this velocity in to the joint space using your Jacobian and feed it as a reference to your velocity controllers. This should make the robot move on a straight line in the $+y$ direction. Record the generated velocity references together with the actual velocity of the system over time, and plot via Matlab.
+	\\
 	
+	To run:
+	\begin{enumerate}
+		\item \texttt{catkin\_make}
+		\item \texttt{source devel/setup.bash}
+		\item \texttt{roslaunch scara\_gazebo scara\_world.launch}
+		\item In a new window, \texttt{rosrun scara\_pd\_controller pd\_control.py}. The controller will begin controlling all joints to their home position ($\theta_1 = \theta_2 = d_3 = 0$).
+		\item In a new window, \texttt{rosservice call /scara/JointControlReference "th1\_des: X.XX th2\_des: X.XX d3\_des: X.XX"} where \texttt{X.XX} and set the robot away from any singularities.
+		\item In a new window, \texttt{rosrun scara\_velocity\_controller velocity\_control.py}. The controller will begin controlling all joint velocity to achieve the predetermined EE velocity ($v_y = 5$).
+	\end{enumerate}
 \end{enumerate}
 \end{document}
 
