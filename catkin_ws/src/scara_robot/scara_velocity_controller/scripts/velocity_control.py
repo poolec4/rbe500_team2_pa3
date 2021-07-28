@@ -16,6 +16,7 @@ from gazebo_msgs.srv import GetJointProperties
 from scara_velocity_controller.srv import VelocityControlReference
 
 from scara_velocity_kinematics.srv import ee_to_joint_velocity
+from scara_velocity_kinematics.srv import joint_to_ee_velocity
 
 debug = True
 print_to_file = True
@@ -35,8 +36,8 @@ x_dot_des = 0.0
 y_dot_des = 5.0
 z_dot_des = 0.0
 
-kp = np.array([100.0, 100.0, 0.0])
-kd = np.array([20.0, 20.0, 0.0])
+kp = np.array([10.0, 10.0, 20.0])
+kd = np.array([5.0, 5.0, 10.0])
 
 rate = 200.0
 
@@ -67,9 +68,6 @@ def velocity_control(joint, vel_cur, vel_des, kp, kd, err_old):
 	zero_time = rospy.Time()
 	tick = rospy.Duration(0, int((1/rate)*10**9))
 	je_service(joint, f, zero_time, tick)
-
-	if print_to_file == True:
-		file1.write("%s,%f,%f,%f,%f\n" % (joint,vel_cur, vel_des,f,1/rate)) 
 
 	return err
 
@@ -134,21 +132,31 @@ def server(): # function that loops continuously waiting for incoming messages
 		th2 = joint_pos_cur[1]
 		d3 = joint_pos_cur[2]
 
-		jac_service = rospy.ServiceProxy('scara/InverseJacobianCalculation', ee_to_joint_velocity)
-		jac_resp = jac_service(th1,th2,d3,x_dot_des,y_dot_des,z_dot_des)
+		jac_inv_service = rospy.ServiceProxy('scara/InverseJacobianCalculation', ee_to_joint_velocity)
+		jac_inv_resp = jac_inv_service(th1,th2,d3,x_dot_des,y_dot_des,z_dot_des)
 
-		q_dot_des[0] = jac_resp.th1_dot
-		q_dot_des[1] = jac_resp.th2_dot
-		q_dot_des[2] = jac_resp.d3_dot
+		q_dot_des[0] = jac_inv_resp.th1_dot
+		q_dot_des[1] = jac_inv_resp.th2_dot
+		q_dot_des[2] = jac_inv_resp.d3_dot
 
 		# invoke controller and set return = q_dot_err for next control loop
-		q_dot_err[0] = velocity_control('joint1', q_dot_cur[0], q_dot_des[0], kp[0], kd[0], q_dot_err[0])
+		q_dot_err[0] = velocity_control('joint1', -q_dot_cur[0], q_dot_des[0], kp[0], kd[0], q_dot_err[0])
 		q_dot_err[1] = velocity_control('joint3', q_dot_cur[1], q_dot_des[1], kp[1], kd[1], q_dot_err[1])
 		q_dot_err[2] = velocity_control('joint5', q_dot_cur[2], q_dot_des[2], kp[2], kd[2], q_dot_err[2])
 
 		joint_pos_old[0] = joint_pos_cur[0]
 		joint_pos_old[1] = joint_pos_cur[1]
 		joint_pos_old[2] = joint_pos_cur[2]
+
+		jac_forward_service = rospy.ServiceProxy('scara/ForwardJacobianCalculation', joint_to_ee_velocity)
+		jac_forward_resp = jac_forward_service(th1,th2,d3,q_dot_cur[0],q_dot_cur[1],q_dot_cur[2])
+
+		vx = jac_forward_resp.x
+		vy = jac_forward_resp.y
+		vz = jac_forward_resp.z
+
+		if print_to_file == True:
+			file1.write("%f,%f,%f,%f,%f,%f,%f\n" % (x_dot_des,y_dot_des,z_dot_des,vx,vy,vz,1.0/rate)) 
 
 		r.sleep()
 

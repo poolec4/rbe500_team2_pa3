@@ -38,9 +38,11 @@
 \begin{itemize}
 	\item Inside \texttt{catkin\_ws/src}, the main package is \texttt{scara\_robot}. It does not directly contain any nodes or launch files, but is a way to organize all of the other nodes.
 	\begin{itemize}
-		\item New package:
+		\item New packages:
 		\begin{itemize}
 			\item The \texttt{scara\_pd\_controller} package implements a proportional and derivative controller for the three controllable joints: joint 1 (revolute), 2 (revolute), and 5 (prismatic joint). The controller functions by reading the current joint position using the \\ \texttt{gazebo/get\_joint\_properties} service, calculating the necessary input into the joint, and applying the input force using the \texttt{gazebo/apply\_joint\_effort} service. The controller receives the desired reference position using a custom service message under \texttt{scara/JointControlReference}.
+			\item The \texttt{scara\_velocity\_controller} package aims to control the end effector velocity given a global reference. It calculates the necessary joint rates using the \texttt{scara\_velocity\_kinematics} package and controls them individually using a set of PD controllers.
+			\item The \texttt{scara\_velocity\_kinematics} package contains two services that calculate the forward and inverse Jacobian for the manipulator. It also calculates the necessary joint rates given a current position and desired end effector velocity or the end effector velocity given the current position and current joint rates.
 		\end{itemize}
 		
 		\item Old packages used (from PA \#1):
@@ -304,6 +306,25 @@ while not rospy.is_shutdown():
 	\end{enumerate}
 
 	\item Give a constant velocity reference in the positive $y$ direction of the Cartesian space. Convert this velocity in to the joint space using your Jacobian and feed it as a reference to your velocity controllers. This should make the robot move on a straight line in the $+y$ direction. Record the generated velocity references together with the actual velocity of the system over time, and plot via Matlab.
+	\\
+	
+	The controller was pre-set with a y velocity of 5. The results are below (shows the x, y, and z components of the reference and actual end effector velocity) from MATLAB:
+	
+	\begin{minipage}[H]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{figures/vel-vx-plot1.png}
+	\end{minipage}
+	\begin{minipage}[H]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{figures/vel-vy-plot1.png}
+	\end{minipage}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{figures/vel-vz-plot1.png}
+	\end{figure}
+	
+	While there is some tuning that needs to be done on the controllers (shown by the large oscillations), it is apparent that the reference position is briefly achieved, specifically in the y axis plot, while the others remain near zero.
 	\\
 	
 	To run:

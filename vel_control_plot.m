@@ -2,56 +2,48 @@ close all
 clear all
 clc
 
-file_path = 'catkin_ws/pd_control_plot.txt';
-data_table = readtable(file_path);
+file_path = 'catkin_ws/velocity_control_plot.txt';
+data = readmatrix(file_path);
 
-data = table2array(data_table(:,2:5));
+t = linspace(0,data(1,7)*length(data),length(data));
+x_dot_des = data(:,1);
+y_dot_des = data(:,2);
+z_dot_des = data(:,3);
+vx = data(:,4);
+vy = data(:,5);
+vz = data(:,6);
 
-
-th1_des = data(ismember(data_table.Var1, 'joint1'),2);
-th1_cur = data(ismember(data_table.Var1, 'joint1'),1);
-th1_f = data(ismember(data_table.Var1, 'joint1'),3);
-th1_len = length(data(ismember(data_table.Var1, 'joint1'),1));
-th1_t = linspace(0,data(1,4)*th1_len,th1_len);
-
-th2_des = data(ismember(data_table.Var1, 'joint3'),2);
-th2_cur = data(ismember(data_table.Var1, 'joint3'),1);
-th2_f = data(ismember(data_table.Var1, 'joint3'),3);
-th2_len = length(data(ismember(data_table.Var1, 'joint3'),1));
-th2_t = linspace(0,data(1,4)*th2_len,th2_len);
-
-d3_des = data(ismember(data_table.Var1, 'joint5'),2);
-d3_cur = data(ismember(data_table.Var1, 'joint5'),1);
-d3_f = data(ismember(data_table.Var1, 'joint5'),3);
-d3_len = length(data(ismember(data_table.Var1, 'joint5'),1));
-d3_t = linspace(0,data(1,4)*d3_len,d3_len);
+t_end = 140;
 
 figure
 hold on
 grid on
-title('Link 1 PD Controller')
+title('Velocity Controller, x')
 xlabel('$t (sec)$','Interpreter','LaTex')
-ylabel('$\theta_1$','Interpreter','LaTex')
-plot(th1_t,th1_des, 'r')
-plot(th1_t,th1_cur, 'b')
-legend('Reference Position', 'Current Position', 'Location', 'northeast')
+ylabel('$v_x$','Interpreter','LaTex')
+plot(t(1:t_end),x_dot_des(1:t_end), 'r')
+plot(t(1:t_end),vx(1:t_end), 'b')
+legend('Reference Velocity', 'Current Velocity', 'Location', 'northeast')
+axis([0 0.6 -5 10])
 
 figure
 hold on
 grid on
-title('Link 2 PD Controller')
+title('Velocity Controller, y')
 xlabel('$t (sec)$','Interpreter','LaTex')
-ylabel('$\theta_2$','Interpreter','LaTex')
-plot(th2_t,th2_des, 'r')
-plot(th2_t,th2_cur, 'b')
-legend('Reference Position', 'Current Position', 'Location', 'northeast')
+ylabel('$v_y$','Interpreter','LaTex')
+plot(t(1:t_end),y_dot_des(1:t_end), 'r')
+plot(t(1:t_end),vy(1:t_end), 'b')
+legend('Reference Velocity', 'Current Velocity', 'Location', 'northeast')
+axis([0 0.6 -5 10])
 
 figure
 hold on
 grid on
-title('Link 3 PD Controller')
+title('Velocity Controller, z')
 xlabel('$t (sec)$','Interpreter','LaTex')
-ylabel('$d_3$','Interpreter','LaTex')
-plot(d3_t,d3_des, 'r')
-plot(d3_t,d3_cur, 'b')
-legend('Reference Position', 'Current Position', 'Location', 'northeast')
+ylabel('$v_z$','Interpreter','LaTex')
+plot(t(1:t_end),z_dot_des(1:t_end), 'r')
+plot(t(1:t_end),vz(1:t_end), 'b')
+legend('Reference Velocity', 'Current Velocity', 'Location', 'northeast')
+axis([0 0.6 -5 10])
